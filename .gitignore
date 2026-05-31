@@ -15,12 +15,8 @@ __pycache__/
 # Project specific
 screen.png
 
-# OpenCode agent context (not part of the site)
-build_web1/.agents/
-build_web1/DESIGN.md
-build_web1/SEO.md
-build_web1/UX-AUDIT.md
-build_web1/scripts/
+# Old build version (not part of the site)
+build_web1/
 
 # Root-level project files (not part of deploy)
 .agents/
