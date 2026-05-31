@@ -26,7 +26,5 @@ build_web1/scripts/
 .agents/
 DESIGN.md
 UX-AUDIT.md
-assets/
-scripts/
-index.html
 code.html
+scripts/
