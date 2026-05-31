@@ -1,5 +1,4 @@
 {
-  "rootDirectory": "site",
   "functions": {
     "api/submit.js": {
       "maxDuration": 10
