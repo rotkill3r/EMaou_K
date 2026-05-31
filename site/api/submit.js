@@ -1,5 +1,5 @@
 // Vercel Serverless Function — Node.js 18+
-// Valida, guarda en Supabase, envía email con SendGrid
+// Valida, envía email con Resend
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -76,22 +76,23 @@ export default async function handler(req, res) {
       '</span></td></tr></table>'
     ].join('\n');
 
-    const sgAdminRes = await fetch('https://api.sendgrid.com/v3/mail/send', {
+    const emailRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        personalizations: [{ to: [{ email: 'sebpowerop@hotmail.com' }], subject: `\u2709 Nuevo contacto: ${name.trim()}` }],
-        from: { email: 'sebpowerop@hotmail.com', name: 'Seb_PROYECT' },
-        content: [{ type: 'text/html', value: adminHtml }]
+        from: 'Seb_PROYECT <onboarding@resend.dev>',
+        to: 'sebpowerop@hotmail.com',
+        subject: `✉ Nuevo contacto: ${name.trim()}`,
+        html: adminHtml
       })
     });
 
-    if (!sgAdminRes.ok) {
-      const errText = await sgAdminRes.text();
-      console.error('SendGrid admin error:', errText);
+    if (!emailRes.ok) {
+      const errText = await emailRes.text();
+      console.error('Resend error:', errText);
     }
 
     // Email de confirmación al remitente vía SendGrid
@@ -148,20 +149,21 @@ export default async function handler(req, res) {
     ].join('\n');
 
     try {
-      await fetch('https://api.sendgrid.com/v3/mail/send', {
+      await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          personalizations: [{ to: [{ email: email.trim().toLowerCase() }], subject: `\u2713 Recibimos tu solicitud, ${name.trim()}` }],
-          from: { email: 'sebpowerop@hotmail.com', name: 'Seb_PROYECT' },
-          content: [{ type: 'text/html', value: confirmHtml }]
+          from: 'Seb_PROYECT <onboarding@resend.dev>',
+          to: email.trim().toLowerCase(),
+          subject: `\u2713 Recibimos tu solicitud, ${name.trim()}`,
+          html: confirmHtml
         })
       });
     } catch (confirmErr) {
-      console.error('SendGrid confirm error:', confirmErr.message || confirmErr);
+      console.error('Resend confirm error:', confirmErr.message || confirmErr);
     }
 
     return res.status(200).json({ success: true });
