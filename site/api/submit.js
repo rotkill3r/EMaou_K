@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, site_url, message } = req.body || {};
+    let { name, email, site_url, message } = req.body || {};
 
     // Validación manual
     if (!name || typeof name !== 'string' || name.trim().length < 2) {
