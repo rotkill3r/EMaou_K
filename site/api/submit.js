@@ -28,31 +28,6 @@ export default async function handler(req, res) {
       }
     }
 
-    // Insertar en Supabase via REST API (sin SDK)
-    const insertRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/contacts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': process.env.SUPABASE_SERVICE_ROLE,
-        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_ROLE}`,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify({
-        name: name.trim(),
-        email: email.trim().toLowerCase(),
-        site_url: (site_url || '').trim(),
-        message: (message || '').trim()
-      })
-    });
-
-    if (!insertRes.ok) {
-      const errText = await insertRes.text();
-      console.error('Supabase insert error:', errText);
-      throw new Error('Error al guardar en base de datos');
-    }
-
-    const [row] = await insertRes.json();
-
     // Enviar email a admin vía SendGrid
     const adminHtml = [
       '<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;max-width:560px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background:#ffffff;border-radius:8px;overflow:hidden">',
@@ -189,7 +164,7 @@ export default async function handler(req, res) {
       console.error('SendGrid confirm error:', confirmErr.message || confirmErr);
     }
 
-    return res.status(200).json({ success: true, id: row.id });
+    return res.status(200).json({ success: true });
   } catch (err) {
     console.error('Submit error:', err.message || err);
     return res.status(500).json({ error: 'Error al procesar la solicitud. Intente nuevamente.' });
