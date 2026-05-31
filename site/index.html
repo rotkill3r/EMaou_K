@@ -871,7 +871,7 @@ document.addEventListener('alpine:init', () => {
       .then(json => {
         if (!json.success) throw new Error(json.error || 'Error al enviar');
         this.formData = { name: '', email: '', site_url: '', message: '' };
-        this.showToast('success', 'Recibido', 'Te contactaremos en 24h.');
+        this.showToast('success', 'Mensaje recibido', 'Le hemos enviado la confirmaci\u00F3n a su correo. Recibir\u00E1 respuesta en 24h.');
       })
       .catch(err => {
         this.showToast('error', 'Error', err.message || 'No se pudo enviar. Intenta de nuevo.');
