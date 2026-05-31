@@ -1,8 +1,8 @@
 {
+  "rootDirectory": "site",
   "functions": {
     "api/submit.js": {
-      "maxDuration": 10,
-      "memory": 128
+      "maxDuration": 10
     }
   },
   "headers": [

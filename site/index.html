@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html class="light" lang="es">
+<html class="light" lang="es" style="color-scheme: dark;">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#050A14" name="theme-color"/>
 <title>Seb_PROYECT — AI Marketing Intelligence</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=Inter:wght@300;400;500;600;700&amp;family=Outfit:wght@700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script>
 tailwind.config = {
   darkMode: "class",
@@ -21,14 +26,59 @@ tailwind.config = {
         "pure-white": "#FFFFFF",
         "ink-black": "#000000",
         "on-surface-variant": "#45474b",
-        "on-tertiary-container": "#838486"
+        "on-tertiary-container": "#838486",
+        "surface-container": "#F0F0F2",
+        "surface-container-high": "#E8E8EA",
+        "outline": "#E0E0E0",
+        "outline-variant": "#C4C4C6",
+        "error": "#BA1A1A",
+        "on-error": "#FFFFFF"
       },
       fontFamily: {
         "display": ["DM Serif Display", "serif"],
-        "body": ["Inter", "sans-serif"],
-        "premium": ["Outfit", "sans-serif"]
+        "body": ["DM Sans", "sans-serif"],
+        "premium": ["Outfit", "sans-serif"],
+        "label": ["Outfit", "sans-serif"]
       },
-      spacing: { "section": "120px" }
+      fontSize: {
+        "headline-xl": ["80px", { lineHeight: "1.05", letterSpacing: "-0.03em", fontWeight: "400" }],
+        "headline-lg": ["52px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" }],
+        "headline-md": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "400" }],
+        "headline-sm": ["24px", { lineHeight: "1.3", letterSpacing: "0" }],
+        "title-lg": ["20px", { lineHeight: "1.4", letterSpacing: "0", fontWeight: "600" }],
+        "body-lg": ["18px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "300" }],
+        "body-md": ["16px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+        "label-lg": ["13px", { lineHeight: "1.4", letterSpacing: "0.1em", fontWeight: "600" }],
+        "label-md": ["11px", { lineHeight: "1.4", letterSpacing: "0.15em", fontWeight: "600" }],
+        "label-sm": ["9px", { lineHeight: "1.4", letterSpacing: "0.2em", fontWeight: "700" }]
+      },
+      spacing: {
+        "section": "120px",
+        "gutter": "24px",
+        "unit": "8px"
+      },
+      boxShadow: {
+        "card": "0 1px 3px rgba(5,10,20,0.04)",
+        "card-hover": "0 24px 64px -16px rgba(5,10,20,0.12)",
+        "elevation-1": "0 2px 8px rgba(5,10,20,0.06)",
+        "elevation-2": "0 8px 32px rgba(5,10,20,0.10)",
+        "elevation-3": "0 16px 48px rgba(5,10,20,0.14)"
+      },
+      borderRadius: {
+        "xs": "2px",
+        "sm": "4px",
+        "md": "8px",
+        "lg": "16px"
+      },
+      keyframes: {
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" }
+        }
+      },
+      animation: {
+        "marquee": "marquee 60s linear infinite"
+      }
     }
   }
 }
@@ -36,10 +86,13 @@ tailwind.config = {
 <style>
 .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
 [x-cloak] { display: none !important; }
-.sans-premium { font-family: 'Inter', sans-serif; letter-spacing: -0.01em; }
+.sans-premium { font-family: 'DM Sans', sans-serif; letter-spacing: -0.01em; }
+.nums-tab { font-variant-numeric: tabular-nums; }
+.heading-balance { text-wrap: balance; }
+.service-card-vert .transition-all { transition: color 0.3s ease, background-color 0.3s ease; }
 
 /* Scroll Reveal */
-.reveal { opacity: 0; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.reveal { opacity: 0; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .reveal-up { transform: translateY(30px); }
 .reveal-left { transform: translateX(-30px); }
 .reveal-right { transform: translateX(30px); }
@@ -47,7 +100,7 @@ tailwind.config = {
 .reveal.visible { opacity: 1; transform: translate(0) scale(1); }
 
 /* Stagger */
-.stagger > * { opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
 .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
 .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
 .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
@@ -61,19 +114,21 @@ tailwind.config = {
 .marquee-track { display: flex; width: max-content; animation: scroll 60s linear infinite; }
 .portfolio-marquee:hover .marquee-track { animation-play-state: paused; }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@media (prefers-reduced-motion) { .marquee-track { animation: none; } .reveal, .stagger > * { opacity: 1; transform: none; } .stagger.visible > * { transition-delay: 0ms !important; } }
 .backdrop-glass { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 
 /* Smooth scroll */
 html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion) { html { scroll-behavior: auto; } }
 
 /* Score bar animation */
 .score-fill { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Service card vertical */
-.service-card-vert { transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+.service-card-vert { transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
 .service-card-vert:hover { transform: translateY(-3px); box-shadow: 0 24px 64px -16px rgba(5,10,20,0.12); }
 .service-card-vert .phase-badge { letter-spacing: 0.15em; }
-.service-card-vert .kpi-box { transition: all 0.3s ease; }
+.service-card-vert .kpi-box { transition: transform 0.3s ease; }
 .service-card-vert:hover .kpi-box { transform: scale(1.01); }
 </style>
 </head>
@@ -84,7 +139,7 @@ html { scroll-behavior: smooth; }
   x-data="{ scrolled: false, mobileOpen: false }"
   @scroll.window="scrolled = window.pageYOffset > 20"
   :class="scrolled ? 'bg-black/95 shadow-lg' : 'bg-black/80'"
-  class="fixed top-0 w-full z-50 backdrop-glass border-b border-white/5 transition-all duration-500"
+  class="fixed top-0 w-full z-50 backdrop-glass border-b border-white/5 transition-[background-color,backdrop-filter,box-shadow] duration-500" style="top: env(safe-area-inset-top, 0px);"
 >
   <div class="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
     <a class="flex items-center gap-2 group" href="#">
@@ -100,8 +155,8 @@ html { scroll-behavior: smooth; }
     </nav>
     <div class="flex items-center gap-4">
       <a class="inline-block bg-brushed-champagne text-midnight-navy px-7 py-3 font-body text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-pure-white transition-all duration-300" href="#contact">Diagnostic Assessment</a>
-      <button @click="mobileOpen = !mobileOpen" class="md:hidden text-pure-white">
-        <span class="material-symbols-outlined text-2xl" x-text="mobileOpen ? 'close' : 'menu'">menu</span>
+      <button @click="mobileOpen = !mobileOpen" class="md:hidden text-pure-white" aria-label="Menú de navegación">
+        <span class="material-symbols-outlined text-2xl" aria-hidden="true" x-text="mobileOpen ? 'close' : 'menu'">menu</span>
       </button>
     </div>
   </div>
@@ -131,7 +186,7 @@ html { scroll-behavior: smooth; }
         <span class="w-1.5 h-1.5 rounded-full bg-brushed-champagne animate-pulse"></span>
         <span class="text-brushed-champagne font-body text-[10px] font-semibold uppercase tracking-[0.25em]">AI Marketing Intelligence</span>
       </div>
-      <h1 class="font-display text-[52px] md:text-[80px] leading-[1.05] text-pure-white mb-6 tracking-tighter max-w-4xl reveal visible">
+      <h1 class="font-display text-[52px] md:text-[80px] leading-[1.05] text-pure-white mb-6 tracking-tighter max-w-4xl reveal visible heading-balance">
         <span class="block text-silk-grey/60 font-body text-sm uppercase tracking-[0.4em] mb-6 font-medium">Sebastian Velasquez</span>
         Marketing de Precisión<br/>
         <span class="italic text-brushed-champagne font-display">Impulsado por IA</span>
@@ -140,25 +195,25 @@ html { scroll-behavior: smooth; }
         Para directores que necesitan justificar cada d&oacute;lar de marketing con datos, no con promesas. <span class="text-silk-grey/80">8 servicios modulares auditables por su CFO, 5 sub-agentes de IA como equipo de analistas &mdash; usted contrata resultados, no horas.</span>
       </p>
       <div class="flex flex-col sm:flex-row items-center gap-4 reveal visible">
-        <a class="bg-pure-white text-midnight-navy px-10 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] hover:bg-brushed-champagne transition-all duration-500" href="#services">Explorar Servicios</a>
-        <a class="text-silk-grey/50 px-10 py-4 font-body text-sm uppercase tracking-[0.2em] hover:text-brushed-champagne transition-all duration-500 border border-silk-grey/10 hover:border-brushed-champagne/30" href="#contact">Agendar Consulta</a>
+        <a class="bg-pure-white text-midnight-navy px-10 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] hover:bg-brushed-champagne transition-[background-color] duration-500" href="#services">Explorar Servicios</a>
+        <a class="text-silk-grey/50 px-10 py-4 font-body text-sm uppercase tracking-[0.2em] hover:text-brushed-champagne transition-[color,border-color] duration-500 border border-silk-grey/10 hover:border-brushed-champagne/30" href="#contact">Agendar Consulta</a>
       </div>
       <!-- Metrics -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-16 pt-20 mt-20 border-t border-white/5 w-full max-w-4xl mx-auto reveal-up">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-16 pt-20 mt-20 border-t border-white/5 w-full max-w-4xl mx-auto reveal-up">
         <div class="flex flex-col items-center">
-          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1">8</span>
+          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1 nums-tab">8</span>
           <span class="text-silk-grey/35 font-body text-[10px] uppercase tracking-[0.25em] font-semibold">Servicios IA</span>
         </div>
         <div class="flex flex-col items-center">
-          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1">5</span>
+          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1 nums-tab">5</span>
           <span class="text-silk-grey/35 font-body text-[10px] uppercase tracking-[0.25em] font-semibold">Sub-Agentes</span>
         </div>
         <div class="flex flex-col items-center">
-          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1">4</span>
+          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1 nums-tab">4</span>
           <span class="text-silk-grey/35 font-body text-[10px] uppercase tracking-[0.25em] font-semibold">Scripts Análisis</span>
         </div>
         <div class="flex flex-col items-center">
-          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1">+43</span>
+          <span class="text-pure-white font-display text-4xl md:text-5xl mb-1 nums-tab">+43</span>
           <span class="text-silk-grey/35 font-body text-[10px] uppercase tracking-[0.25em] font-semibold">Skills de Marketing</span>
         </div>
       </div>
@@ -171,7 +226,7 @@ html { scroll-behavior: smooth; }
   <div class="max-w-[1200px] mx-auto px-6">
     <div class="text-center mb-16 reveal-up">
       <span class="text-brushed-champagne font-body text-[11px] font-semibold uppercase tracking-[0.3em] mb-5 block">Soluciones</span>
-      <h2 class="font-display text-4xl md:text-5xl text-midnight-navy mb-5">8 Servicios de Marketing Intelligence</h2>
+      <h2 class="font-display text-4xl md:text-5xl text-midnight-navy mb-5 heading-balance">8 Servicios de Marketing Intelligence</h2>
       <p class="sans-premium text-on-surface-variant text-lg max-w-2xl mx-auto font-light">Cada servicio responde a un problema concreto con soluci&oacute;n y evidencia medible. Detalles t&eacute;cnicos, tags por audiencia y agente visible sin necesidad de expandir.</p>
     </div>
 
@@ -242,7 +297,7 @@ html { scroll-behavior: smooth; }
   <div class="max-w-[1200px] mx-auto px-6">
     <div class="text-center mb-16 reveal-up">
       <span class="text-brushed-champagne font-body text-[11px] font-semibold uppercase tracking-[0.3em] mb-5 block">Enterprise Audit Engine</span>
-      <h2 class="font-display text-4xl md:text-5xl text-pure-white mb-5">5 Sub-Agentes en Paralelo</h2>
+      <h2 class="font-display text-4xl md:text-5xl text-pure-white mb-5 heading-balance">5 Sub-Agentes en Paralelo</h2>
       <p class="sans-premium text-silk-grey/50 text-lg max-w-2xl mx-auto font-light">Cada engagement lanza 5 agentes en paralelo. Cada uno analiza una dimensión crítica para su negocio y produce un score ponderado que su equipo directivo puede auditar.</p>
     </div>
 
@@ -285,7 +340,7 @@ html { scroll-behavior: smooth; }
       <div class="bg-white/5 border border-white/5 p-10 text-center">
         <span class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-silk-grey/40 block mb-5">Score Global</span>
         <div class="w-36 h-36 rounded-full border-4 border-brushed-champagne/20 flex items-center justify-center mx-auto mb-5">
-          <span class="font-display text-5xl text-pure-white">69</span>
+          <span class="font-display text-5xl text-pure-white nums-tab">69</span>
         </div>
           <span class="font-body text-xs font-semibold uppercase tracking-[0.2em] text-brushed-champagne">Baseline: 69/100 — Potencial de mejora identificado</span>
         <div class="mt-6 pt-6 border-t border-white/5">
@@ -301,7 +356,7 @@ html { scroll-behavior: smooth; }
 <section class="py-[120px] bg-pure-white" id="methodology" x-data="{ step: 1 }">
   <div class="max-w-[1200px] mx-auto px-6 mb-16 text-center reveal-up">
     <span class="text-brushed-champagne font-body text-[11px] font-semibold uppercase tracking-[0.3em] mb-5 block">Enterprise Pipeline</span>
-    <h2 class="font-display text-4xl md:text-5xl text-midnight-navy mb-5">Conducto de Entrega Corporativo</h2>
+    <h2 class="font-display text-4xl md:text-5xl text-midnight-navy mb-5 heading-balance">Conducto de Entrega Corporativo</h2>
     <p class="sans-premium text-on-surface-variant text-lg max-w-2xl mx-auto font-light">Del diagnostic assessment al reporte ejecutivo. Un proceso editorial con gobernanza, KPI por fase y entregables auditables por su comité directivo.</p>
   </div>
   <div class="max-w-[1200px] mx-auto px-6">
@@ -316,7 +371,7 @@ html { scroll-behavior: smooth; }
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">5 agentes auditan simultáneamente. Resultados en 24h con score ejecutivo.</p>
             </div>
           </div>
-          <span :class="step === 1 ? 'rotate-45' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">add</span>
+          <span :class="step === 1 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 1">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -324,11 +379,11 @@ html { scroll-behavior: smooth; }
               <p class="sans-premium text-on-surface-variant text-base md:text-lg leading-relaxed font-light">5 sub-agentes de IA ejecutan una auditoría paralela de su ecosistema digital: contenido, conversión, SEO, competencia y estrategia. Cada dimensión produce un score ponderado. El resultado es un diagnóstico consolidado listo para presentar a su comité directivo. Sin diagnóstico no hay estrategia defendible.</p>
               <div class="py-6 border-y border-brushed-champagne/10">
                 <span class="font-body text-[10px] font-semibold uppercase tracking-widest text-brushed-champagne block mb-3">Métrica de Éxito</span>
-                <p class="font-display text-4xl md:text-5xl text-midnight-navy tracking-tight">+140% <span class="text-sm font-body text-on-surface-variant/60 uppercase tracking-widest ml-2">Keywords de Conversión</span></p>
+                <p class="font-display text-4xl md:text-5xl text-midnight-navy tracking-tight nums-tab">+140% <span class="text-sm font-body text-on-surface-variant/60 uppercase tracking-widest ml-2">Keywords de Conversión</span></p>
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-700" src="https://images.pexels.com/photos/3183145/pexels-photo-3183145.jpeg?cs=srgb&amp;dl=pexels-fauxels-3183145.jpg&amp;fm=jpg" alt="Enterprise Assessment" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/3183145/pexels-photo-3183145.jpeg?cs=srgb&amp;dl=pexels-fauxels-3183145.jpg&amp;fm=jpg" alt="Enterprise Assessment" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">hologram</span>
@@ -348,7 +403,7 @@ html { scroll-behavior: smooth; }
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">Roadmap alineado a OKRs corporativos. CRM configurado, KPI baseline establecido.</p>
             </div>
           </div>
-          <span :class="step === 2 ? 'rotate-45' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">add</span>
+          <span :class="step === 2 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 2">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -356,11 +411,11 @@ html { scroll-behavior: smooth; }
               <p class="sans-premium text-on-surface-variant text-base md:text-lg leading-relaxed font-light">Definimos pilares narrativos alineados con sus OKRs, configuramos el CRM enterprise (Salesforce, Zoho, Pipedrive o ActiveCampaign) y establecemos un baseline de KPI por canal. Cada pieza de contenido tiene un objetivo de negocio medible y un slot en el roadmap.</p>
               <div class="py-6 border-y border-brushed-champagne/10">
                 <span class="font-body text-[10px] font-semibold uppercase tracking-widest text-brushed-champagne block mb-3">Métrica de Éxito</span>
-                <p class="font-display text-4xl md:text-5xl text-midnight-navy tracking-tight">2.4x <span class="text-sm font-body text-on-surface-variant/60 uppercase tracking-widest ml-2">Autoridad de Dominio</span></p>
+                <p class="font-display text-4xl md:text-5xl text-midnight-navy tracking-tight nums-tab">2.4x <span class="text-sm font-body text-on-surface-variant/60 uppercase tracking-widest ml-2">Autoridad de Dominio</span></p>
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-700" src="https://images.pexels.com/photos/6248959/pexels-photo-6248959.jpeg?cs=srgb&amp;dl=pexels-kampus-6248959.jpg&amp;fm=jpg" alt="Strategic Blueprint" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/6248959/pexels-photo-6248959.jpeg?cs=srgb&amp;dl=pexels-kampus-6248959.jpg&amp;fm=jpg" alt="Strategic Blueprint" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">account_tree</span>
@@ -380,7 +435,7 @@ html { scroll-behavior: smooth; }
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">Ejecución editorial con cadencia predecible. Gobernada por briefs aprobados.</p>
             </div>
           </div>
-          <span :class="step === 3 ? 'rotate-45' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">add</span>
+          <span :class="step === 3 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 3">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -388,11 +443,11 @@ html { scroll-behavior: smooth; }
               <p class="sans-premium text-on-surface-variant text-base md:text-lg leading-relaxed font-light">Los skills de copywriting corporativo, email nurturing, social calendar y ads generan activos editoriales con calidad de publicaci&oacute;n. Secuencias de emails calibradas por lead score, calendarios alineados con el buyer journey, campa&ntilde;as multi-plataforma con presupuesto optimizado.</p>
               <div class="py-6 border-y border-brushed-champagne/10">
                 <span class="font-body text-[10px] font-semibold uppercase tracking-widest text-brushed-champagne block mb-3">Resultado Clave</span>
-                <p class="font-display text-4xl md:text-5xl text-midnight-navy tracking-tight">+200% <span class="text-sm font-body text-on-surface-variant/60 uppercase tracking-widest ml-2">Engagement B2B</span></p>
+                <p class="font-display text-4xl md:text-5xl text-midnight-navy tracking-tight nums-tab">+200% <span class="text-sm font-body text-on-surface-variant/60 uppercase tracking-widest ml-2">Engagement B2B</span></p>
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-700" src="https://images.pexels.com/photos/6694560/pexels-photo-6694560.jpeg?cs=srgb&amp;dl=pexels-tima-miroshnichenko-6694560.jpg&amp;fm=jpg" alt="Content Factory" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/6694560/pexels-photo-6694560.jpeg?cs=srgb&amp;dl=pexels-tima-miroshnichenko-6694560.jpg&amp;fm=jpg" alt="Content Factory" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">auto_awesome</span>
@@ -412,7 +467,7 @@ html { scroll-behavior: smooth; }
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">Ciclo continuo de test &rarr; medir &rarr; iterar. Reportes para board.</p>
             </div>
           </div>
-          <span :class="step === 4 ? 'rotate-45' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">add</span>
+          <span :class="step === 4 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 4">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -424,7 +479,7 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-700" src="https://images.pexels.com/photos/6476189/pexels-photo-6476189.jpeg?cs=srgb&amp;dl=pexels-mikael-blomkvist-6476189.jpg&amp;fm=jpg" alt="Performance Lab" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/6476189/pexels-photo-6476189.jpeg?cs=srgb&amp;dl=pexels-mikael-blomkvist-6476189.jpg&amp;fm=jpg" alt="Performance Lab" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">summarize</span>
@@ -443,7 +498,7 @@ html { scroll-behavior: smooth; }
   <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-end mb-14 gap-6 reveal-up">
     <div class="max-w-xl">
       <span class="text-brushed-champagne font-body text-[11px] font-semibold uppercase tracking-[0.2em] mb-5 block">Resultados</span>
-      <h2 class="font-display text-3xl md:text-5xl text-pure-white">Muestras de Reportes</h2>
+      <h2 class="font-display text-3xl md:text-5xl text-pure-white heading-balance">Muestras de Reportes</h2>
       <p class="sans-premium text-silk-grey/50 text-base md:text-lg mt-4 font-light">Reportes con estándar consultora. Acceda a muestras reales de auditorías enterprise, campañas multi-canal y análisis competitivos.</p>
     </div>
     <a class="border-2 border-brushed-champagne text-brushed-champagne px-8 py-4 font-body text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-brushed-champagne hover:text-black transition-all duration-500 flex-shrink-0" href="#contact">Solicitar Sample Deck</a>
@@ -452,7 +507,7 @@ html { scroll-behavior: smooth; }
     <div class="marquee-track gap-6">
       <template x-for="(sample, idx) in marqueeSamples" :key="idx">
         <div class="w-[300px] flex-shrink-0 group relative overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/5">
-          <img class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-all duration-700" :src="sample.img" :alt="sample.name" loading="lazy">
+          <img class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-700" :src="sample.img" :alt="sample.name" loading="lazy">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none">
             <div class="absolute bottom-0 left-0 right-0 p-6 text-center">
               <span class="block text-[8px] font-bold uppercase tracking-[0.2em] text-brushed-champagne/60" x-text="sample.phase"></span>
@@ -463,7 +518,7 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
           </div>
-          <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/50 group-hover:bg-black/70 transition-all duration-500">
+          <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/50 group-hover:bg-black/70 transition-[background-color] duration-500">
             <span class="material-symbols-outlined text-pure-white text-4xl mb-3 opacity-80" style="font-variation-settings:'FILL'1">lock</span>
             <span class="text-silk-grey font-body text-[10px] font-semibold uppercase tracking-[0.2em]">Solicitar Muestra</span>
           </div>
@@ -478,7 +533,7 @@ html { scroll-behavior: smooth; }
   <div class="max-w-[1200px] mx-auto px-6">
     <div class="text-center mb-16 reveal-up">
       <span class="text-brushed-champagne font-body text-[11px] font-semibold uppercase tracking-[0.3em] mb-5 block">Iniciar</span>
-      <h2 class="font-display text-4xl md:text-5xl text-midnight-navy mb-5">Conversemos sobre su Proyecto</h2>
+      <h2 class="font-display text-4xl md:text-5xl text-midnight-navy mb-5 heading-balance">Conversemos sobre su Proyecto</h2>
       <p class="sans-premium text-on-surface-variant text-lg max-w-xl mx-auto font-light">Solicite un Diagnostic Assessment preliminar. Recibir&aacute; un score ejecutivo en 24h.</p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-5xl mx-auto">
@@ -517,22 +572,22 @@ html { scroll-behavior: smooth; }
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="flex flex-col gap-1.5">
               <label for="nombre" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">Nombre</label>
-              <input id="nombre" x-model="formData.name" name="nombre" class="border-0 border-b border-silk-grey focus:ring-0 focus:border-brushed-champagne px-0 py-3 sans-premium bg-transparent text-base" placeholder="Su nombre" type="text" required/>
+              <input id="nombre" x-model="formData.name" name="nombre" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base" placeholder="Su nombre…" type="text" required autocomplete="off" spellcheck="false"/>
             </div>
             <div class="flex flex-col gap-1.5">
               <label for="correo" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">Correo</label>
-              <input id="correo" x-model="formData.email" name="correo" class="border-0 border-b border-silk-grey focus:ring-0 focus:border-brushed-champagne px-0 py-3 sans-premium bg-transparent text-base" placeholder="email@empresa.com" type="email" required/>
+              <input id="correo" x-model="formData.email" name="correo" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base" placeholder="email@empresa.com…" type="email" required autocomplete="off" spellcheck="false"/>
             </div>
           </div>
           <div class="flex flex-col gap-1.5">
             <label for="sitio" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">URL del Sitio</label>
-            <input id="sitio" x-model="formData.site_url" name="sitio" class="border-0 border-b border-silk-grey focus:ring-0 focus:border-brushed-champagne px-0 py-3 sans-premium bg-transparent text-base" placeholder="https://tusitio.com" type="url"/>
+            <input id="sitio" x-model="formData.site_url" name="sitio" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base" placeholder="https://tusitio.com…" type="url" autocomplete="off"/>
           </div>
           <div class="flex flex-col gap-1.5">
             <label for="mensaje" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">Mensaje</label>
-            <textarea id="mensaje" x-model="formData.message" name="mensaje" class="border-0 border-b border-silk-grey focus:ring-0 focus:border-brushed-champagne px-0 py-3 sans-premium bg-transparent resize-none text-base" placeholder="Describa brevemente su proyecto..." rows="3"></textarea>
+            <textarea id="mensaje" x-model="formData.message" name="mensaje" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent resize-none text-base" placeholder="Describa brevemente su proyecto…" rows="3"></textarea>
           </div>
-          <button :disabled="submitting" class="w-full bg-midnight-navy text-pure-white py-5 font-body text-sm font-bold uppercase tracking-[0.25em] hover:bg-black transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" type="submit">
+          <button :disabled="submitting" class="w-full bg-midnight-navy text-pure-white py-6 font-body text-sm font-bold uppercase tracking-[0.25em] hover:bg-black transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" type="submit">
             <span x-show="!submitting">Solicitar Diagnostic Assessment</span>
             <span x-show="submitting" class="flex items-center justify-center gap-2">
               <svg class="animate-spin h-5 w-5 text-pure-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -549,16 +604,16 @@ html { scroll-behavior: smooth; }
 </section>
 
 <!-- ===== TOAST ===== -->
-<div x-cloak x-show="toast.show" x-transition:enter="transition-all duration-300" x-transition:leave="transition-all duration-300" class="fixed bottom-8 right-8 z-[100] max-w-sm">
+<div x-cloak x-show="toast.show" x-transition:enter="transition-all duration-300" x-transition:leave="transition-all duration-300" class="fixed bottom-8 right-8 z-[100] max-w-sm" style="bottom: calc(32px + env(safe-area-inset-bottom, 0px)); right: calc(32px + env(safe-area-inset-right, 0px));" role="alert" aria-live="polite">
   <div :class="toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'" class="text-pure-white p-5 shadow-2xl rounded-sm">
     <div class="flex items-start gap-4">
-      <span class="material-symbols-outlined text-2xl flex-shrink-0" x-text="toast.type === 'success' ? 'check_circle' : 'error'"></span>
+      <span class="material-symbols-outlined text-2xl flex-shrink-0" aria-hidden="true" x-text="toast.type === 'success' ? 'check_circle' : 'error'"></span>
       <div class="flex-1 min-w-0">
         <p class="font-body text-sm font-bold uppercase tracking-wider" x-text="toast.title"></p>
         <p class="font-body text-xs text-white/80 mt-1" x-text="toast.message"></p>
       </div>
       <button @click="toast.show = false" class="text-white/60 hover:text-white flex-shrink-0" aria-label="Cerrar notificación">
-        <span class="material-symbols-outlined text-xl">close</span>
+        <span class="material-symbols-outlined text-xl" aria-hidden="true">close</span>
       </button>
     </div>
   </div>
