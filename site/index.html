@@ -70,20 +70,13 @@ tailwind.config = {
         "md": "8px",
         "lg": "16px"
       },
-      keyframes: {
-        "marquee": {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" }
-        }
-      },
-      animation: {
-        "marquee": "marquee 60s linear infinite"
-      }
+
     }
   }
 }
 </script>
 <style>
+/* ===== UTILITIES ===== */
 .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
 [x-cloak] { display: none !important; }
 .sans-premium { font-family: 'DM Sans', sans-serif; letter-spacing: -0.01em; }
@@ -111,25 +104,146 @@ tailwind.config = {
 .stagger.visible > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
 
 /* Marquee */
-.marquee-track { display: flex; width: max-content; animation: scroll 60s linear infinite; }
+.marquee-track { display: flex; width: max-content; animation: scroll 35s linear infinite; }
 .portfolio-marquee:hover .marquee-track { animation-play-state: paused; }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-@media (prefers-reduced-motion) { .marquee-track { animation: none; } .reveal, .stagger > * { opacity: 1; transform: none; } .stagger.visible > * { transition-delay: 0ms !important; } }
-.backdrop-glass { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.portfolio-marquee-fade {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
 
-/* Smooth scroll */
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion) { .marquee-track { animation: none; } .reveal, .stagger > * { opacity: 1; transform: none; } .stagger.visible > * { transition-delay: 0ms !important; } }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion) { html { scroll-behavior: auto; } }
+
+/* ===== COMPONENTS ===== */
 
 /* Score bar animation */
 .score-fill { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Service card vertical */
 .service-card-vert { transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-.service-card-vert:hover { transform: translateY(-3px); box-shadow: 0 24px 64px -16px rgba(5,10,20,0.12); }
+.service-card-vert:hover { transform: translateY(-3px); }
 .service-card-vert .phase-badge { letter-spacing: 0.15em; }
 .service-card-vert .kpi-box { transition: transform 0.3s ease; }
 .service-card-vert:hover .kpi-box { transform: scale(1.01); }
+
+/* ===== INTERACTIONS & EFFECTS ===== */
+
+/* Hero */
+.gold-pulse { animation: gold-pulse 4s ease-in-out infinite; }
+@keyframes gold-pulse { 0%, 100% { opacity: 0.04; } 50% { opacity: 0.08; } }
+
+/* Glow pulse badge */
+.glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+@keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 8px rgba(212,175,55,0.15); } 50% { box-shadow: 0 0 20px rgba(212,175,55,0.3); } }
+
+/* Text shimmer gold */
+.text-gradient-gold {
+  background: linear-gradient(90deg, #D4AF37, #F5E6A3, #D4AF37);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 4s linear infinite;
+}
+@keyframes text-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* Buttons */
+.cta-press { transition: background-color 0.3s ease, color 0.3s ease, transform 0.15s ease, border-color 0.3s ease; }
+.cta-press:active { transform: scale(0.97); }
+.btn-press:active { transform: scale(0.98); }
+.btn-press { transition: background-color 0.3s ease, transform 0.15s ease, opacity 0.3s ease; }
+
+/* Service Cards */
+.service-num {
+  background: linear-gradient(135deg, #D4AF37 0%, #F5E6A3 50%, rgba(212,175,55,0.15) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Service icon hover */
+.service-card-vert .service-icon { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.service-card-vert:hover .service-icon { transform: rotate(-5deg) scale(1.05); }
+
+/* Service card glow hover */
+.service-card-vert:hover { box-shadow: 0 24px 64px -16px rgba(5,10,20,0.12), 0 0 40px -16px var(--card-color, #D4AF37); }
+
+/* Agents */
+.agent-card {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease;
+  border-left: 3px solid transparent;
+}
+.agent-card:hover { transform: translateY(-6px); background-color: rgba(5,10,20,0.85); }
+.agent-card:nth-child(1):hover { box-shadow: 0 24px 48px -16px rgba(76,175,80,0.25); border-left-color: #4CAF50; }
+.agent-card:nth-child(2):hover { box-shadow: 0 24px 48px -16px rgba(33,150,243,0.25); border-left-color: #2196F3; }
+.agent-card:nth-child(3):hover { box-shadow: 0 24px 48px -16px rgba(255,193,7,0.25); border-left-color: #FFC107; }
+.agent-card:nth-child(4):hover { box-shadow: 0 24px 48px -16px rgba(156,39,176,0.25); border-left-color: #9C27B0; }
+.agent-card:nth-child(5):hover { box-shadow: 0 24px 48px -16px rgba(212,175,55,0.25); border-left-color: #D4AF37; }
+
+/* Agent num */
+.agent-num { transition: color 0.4s ease; }
+.agent-card:hover .agent-num { color: #D4AF37; }
+
+/* Methodology */
+.methodology-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(212,175,55,0.25);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+  color: #D4AF37;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+  flex-shrink: 0;
+}
+.group:hover .methodology-step-num { border-color: #D4AF37; box-shadow: 0 0 24px rgba(212,175,55,0.2); background-color: rgba(212,175,55,0.05); }
+
+/* Methodology timeline line */
+.methodology-timeline { position: relative; }
+.methodology-timeline::before {
+  content: '';
+  position: absolute;
+  left: 96px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(212,175,55,0.2), rgba(212,175,55,0.05) 100%);
+  pointer-events: none;
+}
+@media (min-width: 768px) { .methodology-timeline::before { left: 120px; } }
+
+/* Methodology image grayscale -> color */
+.methodology-img { filter: grayscale(100%); transition: filter 0.6s ease, transform 0.6s ease, opacity 0.6s ease; }
+.group:hover .methodology-img { filter: grayscale(0%) brightness(1.05); transform: scale(1.05); }
+
+/* Expand icon hover state */
+.methodology-expand { transition: transform 0.5s ease, color 0.4s ease, opacity 0.4s ease; }
+
+/* Portfolio */
+.portfolio-lock {
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+}
+.group:hover .portfolio-lock { opacity: 0.7; backdrop-filter: blur(2px); }
+
+/* Portfolio lock icon */
+.portfolio-lock-icon { transition: opacity 0.5s ease; }
+.group:hover .portfolio-lock-icon { opacity: 0.3 !important; }
+
+/* Portfolio image hover */
+.portfolio-img { transition: filter 0.6s ease, transform 0.6s ease; }
+.group:hover .portfolio-img { filter: brightness(1.1); transform: scale(1.03); }
+
+/* Form */
+.form-input:focus { border-bottom-width: 2px; }
 </style>
 </head>
 <body class="bg-silk-grey text-midnight-navy font-body selection:bg-brushed-champagne/30 overflow-x-hidden" x-data="app()">
@@ -154,7 +268,7 @@ html { scroll-behavior: smooth; }
       <a class="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-silk-grey/70 hover:text-brushed-champagne transition-colors" href="#contact">Contacto</a>
     </nav>
     <div class="flex items-center gap-4">
-      <a class="inline-block bg-brushed-champagne text-midnight-navy px-7 py-3 font-body text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-pure-white transition-all duration-300" href="#contact">Diagnostic Assessment</a>
+      <a class="cta-press inline-block bg-brushed-champagne text-midnight-navy px-7 py-3 font-body text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] hover:bg-pure-white" href="#contact">Diagnostic Assessment</a>
       <button @click="mobileOpen = !mobileOpen" class="md:hidden text-pure-white" aria-label="Menú de navegación">
         <span class="material-symbols-outlined text-2xl" aria-hidden="true" x-text="mobileOpen ? 'close' : 'menu'">menu</span>
       </button>
@@ -178,25 +292,25 @@ html { scroll-behavior: smooth; }
       <source src="https://cdn.pixabay.com/video/2022/11/03/137614-767056227_large.mp4" type="video/mp4">
     </video>
     <div class="absolute inset-0 bg-gradient-to-br from-black via-midnight-navy to-black/80"></div>
-    <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 30% 40%, #D4AF37 0%, transparent 50%), radial-gradient(circle at 70% 60%, #D4AF37 0%, transparent 40%);"></div>
+    <div class="absolute inset-0 gold-pulse" style="background-image: radial-gradient(circle at 30% 40%, #D4AF37 0%, transparent 50%), radial-gradient(circle at 70% 60%, #D4AF37 0%, transparent 40%);"></div>
   </div>
   <div class="max-w-[1200px] mx-auto px-6 relative z-10 w-full py-24">
     <div class="flex flex-col items-center text-center">
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-brushed-champagne/15 rounded-full mb-8 reveal visible">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-brushed-champagne/15 rounded-full mb-8 reveal visible glow-pulse">
         <span class="w-1.5 h-1.5 rounded-full bg-brushed-champagne animate-pulse"></span>
         <span class="text-brushed-champagne font-body text-[10px] font-semibold uppercase tracking-[0.25em]">AI Marketing Intelligence</span>
       </div>
       <h1 class="font-display text-[52px] md:text-[80px] leading-[1.05] text-pure-white mb-6 tracking-tighter max-w-4xl reveal visible heading-balance">
         <span class="block text-silk-grey/60 font-body text-sm uppercase tracking-[0.4em] mb-6 font-medium">Sebastian Velasquez</span>
         Marketing de Precisión<br/>
-        <span class="italic text-brushed-champagne font-display">Impulsado por IA</span>
+        <span class="italic font-display text-gradient-gold">Impulsado por IA</span>
       </h1>
       <p class="sans-premium text-silk-grey/60 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed font-light reveal visible">
         Para directores que necesitan justificar cada d&oacute;lar de marketing con datos, no con promesas. <span class="text-silk-grey/80">8 servicios modulares auditables por su CFO, 5 sub-agentes de IA como equipo de analistas &mdash; usted contrata resultados, no horas.</span>
       </p>
       <div class="flex flex-col sm:flex-row items-center gap-4 reveal visible">
-        <a class="bg-pure-white text-midnight-navy px-10 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] hover:bg-brushed-champagne transition-[background-color] duration-500" href="#services">Explorar Servicios</a>
-        <a class="text-silk-grey/50 px-10 py-4 font-body text-sm uppercase tracking-[0.2em] hover:text-brushed-champagne transition-[color,border-color] duration-500 border border-silk-grey/10 hover:border-brushed-champagne/30" href="#contact">Agendar Consulta</a>
+        <a class="cta-press bg-pure-white text-midnight-navy px-10 py-4 font-body text-sm font-bold uppercase tracking-[0.2em] hover:bg-brushed-champagne" href="#services">Explorar Servicios</a>
+        <a class="cta-press text-silk-grey/50 px-10 py-4 font-body text-sm uppercase tracking-[0.2em] hover:text-brushed-champagne border border-silk-grey/10 hover:border-brushed-champagne/30" href="#contact">Agendar Consulta</a>
       </div>
       <!-- Metrics -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-16 pt-20 mt-20 border-t border-white/5 w-full max-w-4xl mx-auto reveal-up">
@@ -246,14 +360,14 @@ html { scroll-behavior: smooth; }
     <div class="grid grid-cols-1 gap-6 max-w-4xl mx-auto stagger" id="services-grid">
       <template x-for="(svc, idx) in filteredServices" :key="idx">
         <div class="service-card-vert bg-pure-white border border-black/[0.04] p-8 md:p-10 flex flex-col relative overflow-hidden group"
-             :style="'border-left: 4px solid ' + svc.color">
+             :style="'border-left: 4px solid ' + svc.color + '; --card-color: ' + svc.color">
           <div class="flex items-center justify-between mb-6">
             <span class="phase-badge px-4 py-1.5 text-white text-[9px] font-bold uppercase tracking-[0.15em] rounded-sm"
                   :style="'background:' + svc.color" x-text="svc.phase"></span>
-            <span class="text-5xl font-display text-black/[0.03]" x-text="svc.num"></span>
+            <span class="text-5xl font-display service-num" x-text="svc.num"></span>
           </div>
           <div class="flex items-center gap-3 mb-6">
-            <span class="material-symbols-outlined text-3xl" :style="'color:' + svc.color" x-text="svc.icon"></span>
+            <span class="material-symbols-outlined text-3xl service-icon" :style="'color:' + svc.color" x-text="svc.icon"></span>
             <h3 class="font-display text-2xl md:text-3xl text-midnight-navy leading-tight" x-text="svc.name"></h3>
           </div>
           <div class="mb-3">
@@ -304,8 +418,8 @@ html { scroll-behavior: smooth; }
     <!-- Agents Grid -->
     <div class="grid grid-cols-1 md:grid-cols-5 gap-px bg-white/5 border border-white/5 mb-16 stagger">
       <template x-for="(agent, idx) in agents" :key="idx">
-        <div class="bg-black p-8 text-center group hover:bg-midnight-navy/70 transition-all duration-500">
-          <span class="text-5xl font-display text-brushed-champagne/20 group-hover:text-brushed-champagne/40 transition-colors block mb-4" x-text="agent.num"></span>
+        <div class="bg-black p-8 text-center group transition-all duration-500 agent-card">
+          <span class="text-5xl font-display agent-num block mb-4" x-text="agent.num"></span>
           <span class="material-symbols-outlined text-3xl text-brushed-champagne/50 block mb-4" x-text="agent.icon"></span>
           <h3 class="font-display text-xl text-pure-white mb-2" x-text="agent.name"></h3>
           <p class="font-body text-xs text-silk-grey/40 leading-relaxed mb-5" x-text="agent.what"></p>
@@ -360,18 +474,18 @@ html { scroll-behavior: smooth; }
     <p class="sans-premium text-on-surface-variant text-lg max-w-2xl mx-auto font-light">Del diagnostic assessment al reporte ejecutivo. Un proceso editorial con gobernanza, KPI por fase y entregables auditables por su comité directivo.</p>
   </div>
   <div class="max-w-[1200px] mx-auto px-6">
-    <div class="flex flex-col gap-px bg-silk-grey/50 border border-silk-grey/30">
+    <div class="flex flex-col gap-px bg-silk-grey/50 border border-silk-grey/30 methodology-timeline">
       <!-- Step 1 -->
       <div :class="step === 1 ? 'shadow-lg' : ''" class="bg-pure-white group transition-all duration-500">
         <button @click="step = step === 1 ? 0 : 1" class="cursor-pointer w-full flex items-center justify-between p-8 md:p-10 text-left hover:bg-silk-grey/30 transition-colors">
           <div class="flex items-center gap-8 md:gap-12">
-            <span class="font-display text-3xl md:text-4xl text-brushed-champagne/30 group-hover:text-brushed-champagne transition-colors">01</span>
+            <span class="methodology-step-num">01</span>
             <div>
               <h3 class="font-display text-2xl md:text-3xl text-midnight-navy">Enterprise Assessment</h3>
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">5 agentes auditan simultáneamente. Resultados en 24h con score ejecutivo.</p>
             </div>
           </div>
-          <span :class="step === 1 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
+          <span :class="step === 1 ? 'rotate-180 text-brushed-champagne' : 'text-brushed-champagne/50'" class="material-symbols-outlined methodology-expand">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 1">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -383,7 +497,7 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/3183145/pexels-photo-3183145.jpeg?cs=srgb&amp;dl=pexels-fauxels-3183145.jpg&amp;fm=jpg" alt="Enterprise Assessment" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 methodology-img" src="https://images.pexels.com/photos/3183145/pexels-photo-3183145.jpeg?cs=srgb&amp;dl=pexels-fauxels-3183145.jpg&amp;fm=jpg" alt="Enterprise Assessment" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">hologram</span>
@@ -397,13 +511,13 @@ html { scroll-behavior: smooth; }
       <div :class="step === 2 ? 'shadow-lg' : ''" class="bg-pure-white group transition-all duration-500">
         <button @click="step = step === 2 ? 0 : 2" class="cursor-pointer w-full flex items-center justify-between p-8 md:p-10 text-left hover:bg-silk-grey/30 transition-colors">
           <div class="flex items-center gap-8 md:gap-12">
-            <span class="font-display text-3xl md:text-4xl text-brushed-champagne/30 group-hover:text-brushed-champagne transition-colors">02</span>
+            <span class="methodology-step-num">02</span>
             <div>
               <h3 class="font-display text-2xl md:text-3xl text-midnight-navy">Strategic Blueprint</h3>
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">Roadmap alineado a OKRs corporativos. CRM configurado, KPI baseline establecido.</p>
             </div>
           </div>
-          <span :class="step === 2 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
+          <span :class="step === 2 ? 'rotate-180 text-brushed-champagne' : 'text-brushed-champagne/50'" class="material-symbols-outlined methodology-expand">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 2">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -415,7 +529,7 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/6248959/pexels-photo-6248959.jpeg?cs=srgb&amp;dl=pexels-kampus-6248959.jpg&amp;fm=jpg" alt="Strategic Blueprint" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 methodology-img" src="https://images.pexels.com/photos/6248959/pexels-photo-6248959.jpeg?cs=srgb&amp;dl=pexels-kampus-6248959.jpg&amp;fm=jpg" alt="Strategic Blueprint" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">account_tree</span>
@@ -429,13 +543,13 @@ html { scroll-behavior: smooth; }
       <div :class="step === 3 ? 'shadow-lg' : ''" class="bg-pure-white group transition-all duration-500">
         <button @click="step = step === 3 ? 0 : 3" class="cursor-pointer w-full flex items-center justify-between p-8 md:p-10 text-left hover:bg-silk-grey/30 transition-colors">
           <div class="flex items-center gap-8 md:gap-12">
-            <span class="font-display text-3xl md:text-4xl text-brushed-champagne/30 group-hover:text-brushed-champagne transition-colors">03</span>
+            <span class="methodology-step-num">03</span>
             <div>
               <h3 class="font-display text-2xl md:text-3xl text-midnight-navy">Content Factory</h3>
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">Ejecución editorial con cadencia predecible. Gobernada por briefs aprobados.</p>
             </div>
           </div>
-          <span :class="step === 3 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
+          <span :class="step === 3 ? 'rotate-180 text-brushed-champagne' : 'text-brushed-champagne/50'" class="material-symbols-outlined methodology-expand">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 3">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -447,7 +561,7 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/6694560/pexels-photo-6694560.jpeg?cs=srgb&amp;dl=pexels-tima-miroshnichenko-6694560.jpg&amp;fm=jpg" alt="Content Factory" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 methodology-img" src="https://images.pexels.com/photos/6694560/pexels-photo-6694560.jpeg?cs=srgb&amp;dl=pexels-tima-miroshnichenko-6694560.jpg&amp;fm=jpg" alt="Content Factory" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">auto_awesome</span>
@@ -461,13 +575,13 @@ html { scroll-behavior: smooth; }
       <div :class="step === 4 ? 'shadow-lg' : ''" class="bg-pure-white group transition-all duration-500">
         <button @click="step = step === 4 ? 0 : 4" class="cursor-pointer w-full flex items-center justify-between p-8 md:p-10 text-left hover:bg-silk-grey/30 transition-colors">
           <div class="flex items-center gap-8 md:gap-12">
-            <span class="font-display text-3xl md:text-4xl text-brushed-champagne/30 group-hover:text-brushed-champagne transition-colors">04</span>
+            <span class="methodology-step-num">04</span>
             <div>
               <h3 class="font-display text-2xl md:text-3xl text-midnight-navy">Performance Lab</h3>
               <p class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60 mt-1">Ciclo continuo de test &rarr; medir &rarr; iterar. Reportes para board.</p>
             </div>
           </div>
-          <span :class="step === 4 ? 'rotate-180' : ''" class="material-symbols-outlined text-brushed-champagne transition-transform duration-500">expand_more</span>
+          <span :class="step === 4 ? 'rotate-180 text-brushed-champagne' : 'text-brushed-champagne/50'" class="material-symbols-outlined methodology-expand">expand_more</span>
         </button>
         <div x-cloak x-collapse x-show="step === 4">
           <div class="px-8 md:px-10 pb-16 md:pb-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -479,7 +593,7 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
             <div class="aspect-[4/3] relative overflow-hidden rounded-sm bg-midnight-navy/5">
-              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700" src="https://images.pexels.com/photos/6476189/pexels-photo-6476189.jpeg?cs=srgb&amp;dl=pexels-mikael-blomkvist-6476189.jpg&amp;fm=jpg" alt="Performance Lab" loading="lazy">
+              <img class="w-full h-full object-cover opacity-50 group-hover:opacity-70 methodology-img" src="https://images.pexels.com/photos/6476189/pexels-photo-6476189.jpeg?cs=srgb&amp;dl=pexels-mikael-blomkvist-6476189.jpg&amp;fm=jpg" alt="Performance Lab" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none"></div>
               <div class="absolute bottom-0 left-0 right-0 p-6 text-center pointer-events-none">
                 <span class="material-symbols-outlined text-3xl text-brushed-champagne/40 block mb-1">summarize</span>
@@ -503,11 +617,11 @@ html { scroll-behavior: smooth; }
     </div>
     <a class="border-2 border-brushed-champagne text-brushed-champagne px-8 py-4 font-body text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-brushed-champagne hover:text-black transition-all duration-500 flex-shrink-0" href="#contact">Solicitar Sample Deck</a>
   </div>
-  <div class="relative w-full overflow-hidden py-6 reveal-scale portfolio-marquee">
+  <div class="reveal-scale"><div class="relative w-full overflow-hidden py-6 portfolio-marquee portfolio-marquee-fade">
     <div class="marquee-track gap-6">
       <template x-for="(sample, idx) in marqueeSamples" :key="idx">
-        <div class="w-[300px] flex-shrink-0 group relative overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/5">
-          <img class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-700" :src="sample.img" :alt="sample.name" loading="lazy">
+        <div class="w-[380px] flex-shrink-0 group relative overflow-hidden aspect-[3/4] bg-neutral-900 border border-white/5">
+          <img class="w-full h-full object-cover opacity-40 group-hover:opacity-60 portfolio-img" :src="sample.img" :alt="sample.name" loading="lazy">
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none">
             <div class="absolute bottom-0 left-0 right-0 p-6 text-center">
               <span class="block text-[8px] font-bold uppercase tracking-[0.2em] text-brushed-champagne/60" x-text="sample.phase"></span>
@@ -518,14 +632,15 @@ html { scroll-behavior: smooth; }
               </div>
             </div>
           </div>
-          <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/50 group-hover:bg-black/70 transition-[background-color] duration-500">
-            <span class="material-symbols-outlined text-pure-white text-4xl mb-3 opacity-80" style="font-variation-settings:'FILL'1">lock</span>
+          <div class="absolute inset-0 flex flex-col items-center justify-center portfolio-lock">
+            <span class="material-symbols-outlined text-pure-white text-4xl mb-3 portfolio-lock-icon" style="font-variation-settings:'FILL'1">lock</span>
             <span class="text-silk-grey font-body text-[10px] font-semibold uppercase tracking-[0.2em]">Solicitar Muestra</span>
           </div>
         </div>
       </template>
     </div>
   </div>
+</div>
 </section>
 
 <!-- ===== CONTACT ===== -->
@@ -572,22 +687,22 @@ html { scroll-behavior: smooth; }
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="flex flex-col gap-1.5">
               <label for="nombre" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">Nombre</label>
-              <input id="nombre" x-model="formData.name" name="nombre" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base" placeholder="Su nombre…" type="text" required autocomplete="off" spellcheck="false"/>
+              <input id="nombre" x-model="formData.name" name="nombre" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base form-input" placeholder="Su nombre…" type="text" required autocomplete="off" spellcheck="false"/>
             </div>
             <div class="flex flex-col gap-1.5">
               <label for="correo" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">Correo</label>
-              <input id="correo" x-model="formData.email" name="correo" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base" placeholder="email@empresa.com…" type="email" required autocomplete="off" spellcheck="false"/>
+              <input id="correo" x-model="formData.email" name="correo" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base form-input" placeholder="email@empresa.com…" type="email" required autocomplete="off" spellcheck="false"/>
             </div>
           </div>
           <div class="flex flex-col gap-1.5">
             <label for="sitio" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">URL del Sitio</label>
-            <input id="sitio" x-model="formData.site_url" name="sitio" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base" placeholder="https://tusitio.com…" type="url" autocomplete="off"/>
+            <input id="sitio" x-model="formData.site_url" name="sitio" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent text-base form-input" placeholder="https://tusitio.com…" type="url" autocomplete="off"/>
           </div>
           <div class="flex flex-col gap-1.5">
             <label for="mensaje" class="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">Mensaje</label>
-            <textarea id="mensaje" x-model="formData.message" name="mensaje" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent resize-none text-base" placeholder="Describa brevemente su proyecto…" rows="3"></textarea>
+            <textarea id="mensaje" x-model="formData.message" name="mensaje" class="border-0 border-b border-silk-grey focus-visible:ring-1 focus-visible:ring-brushed-champagne focus-visible:ring-offset-0 focus:border-brushed-champagne px-0 py-4 sans-premium bg-transparent resize-none text-base form-input" placeholder="Describa brevemente su proyecto…" rows="3"></textarea>
           </div>
-          <button :disabled="submitting" class="w-full bg-midnight-navy text-pure-white py-6 font-body text-sm font-bold uppercase tracking-[0.25em] hover:bg-black transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" type="submit">
+          <button :disabled="submitting" :aria-busy="submitting ? 'true' : 'false'" class="w-full bg-midnight-navy text-pure-white py-6 font-body text-sm font-bold uppercase tracking-[0.25em] hover:bg-black shadow-lg disabled:opacity-50 disabled:cursor-not-allowed btn-press" type="submit">
             <span x-show="!submitting">Solicitar Diagnostic Assessment</span>
             <span x-show="submitting" class="flex items-center justify-center gap-2">
               <svg class="animate-spin h-5 w-5 text-pure-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -737,10 +852,14 @@ document.addEventListener('alpine:init', () => {
 
     submitForm() {
       this.submitting = true;
+      let siteUrl = this.formData.site_url.trim();
+      if (siteUrl && !/^https?:\/\//i.test(siteUrl)) {
+        siteUrl = 'https://' + siteUrl;
+      }
       const payload = {
         name: this.formData.name.trim(),
         email: this.formData.email.trim(),
-        site_url: this.formData.site_url.trim(),
+        site_url: siteUrl,
         message: this.formData.message.trim()
       };
       fetch('/api/submit', {

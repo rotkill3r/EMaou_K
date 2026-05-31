@@ -21,8 +21,11 @@ export default async function handler(req, res) {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: 'Email inválido' });
     }
-    if (site_url && typeof site_url === 'string' && site_url.trim() && !/^https?:\/\/.+/.test(site_url.trim())) {
-      return res.status(400).json({ error: 'URL inválida (debe comenzar con http:// o https://)' });
+    if (site_url && typeof site_url === 'string') {
+      site_url = site_url.trim();
+      if (!/^https?:\/\//i.test(site_url)) {
+        site_url = 'https://' + site_url;
+      }
     }
 
     // Insertar en Supabase via REST API (sin SDK)
